@@ -2,8 +2,105 @@ form {
     display: grid;
     grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(2, auto);
+    grid-template-columns: 1fr 1fr;
+    /* background: greenyellow; */
 }
 
 form > div:nth-child(5) {
     grid-column: 1 / span 2;
 }
+
+section#contact{
+    display: 100vh;
+    padding-top: 100px;
+}
+
+section#contact .contact-me {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 56px;
+}
+
+section#contact .contact-me > h1{
+    margin-top: 0px;
+    margin-bottom: 24px;
+    color: #14142b;
+    font-size: 68px;
+    line-height: 1.3em;
+    font-weight: 700;
+    font-family: 'robotoBLD';
+    display: flex;
+    text-align: center;
+    width: auto;
+}
+
+section#contact .contact-me > p{
+    font-family: 'robotoRG';
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+section#contact .contact-container{
+    display: flex;
+    flex-direction: row;
+    min-height: 732px;
+    justify-content: center;
+}
+
+section#contact .contact-form{
+    border: 2px solid #d9dbe9;
+    border-radius: 20px;
+    padding: 40px 32px;
+    width: auto;
+    gap: 30px;
+    margin: 0px 0px 56px;
+}
+
+input{
+    background: whitesmoke;
+    padding: 25px 27px;
+    border: 1px solid #d9dbe9;
+    border-radius: 50px;
+    font-family: 'robotoRG';
+    font-size: 18px;
+}
+
+label{
+    margin: 0px 0px 17px;
+    font-family: 'robotoBLD';
+}
+
+section#contact .contact-btn{
+    margin: 12px 0px 0px;
+}
+
+button{
+    padding: 24px 60px;
+    font-family: 'robotoBLD';
+    font-size: 18px;
+    color: whitesmoke;
+    background: #14142b;
+    border: 1px solid #d9dbe9;
+    border-radius: 50px;
+}
+textarea{
+    /* background: whitesmoke; */
+    padding: 25px 27px;
+    border: 1px solid #d9dbe9;
+    border-radius: 20px;
+    font-family: 'robotoRG';
+    font-size: 18px;
+    width: auto;
+}
+section#contact .contact-data{
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto; 
+}
+
