@@ -83,3 +83,35 @@ a:foc {
     color: var(--Neutral800);
     transform: translate3d(0px, -6px, 0.1px);
 }
+
+
+
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-wrapper > label {
+    font-family: 'robotoBLD';
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1.125rem;
+}
+
+.field-wrapper > input,
+.field-wrapper > textarea {
+    height: 5rem;
+    border-radius: 4rem;
+    padding: 0 2rem;
+    border-color: var(--Neutral400);
+    border-style: solid;
+}
+
+.field-wrapper > input:focus-visible,
+.field-wrapper > input:hover,
+.field-wrapper > textarea:focus-visible,
+.field-wrapper > textarea:hover {
+    outline-color: var(--Neutral800);
+    border-color: var(--Neutral800);
+}
+

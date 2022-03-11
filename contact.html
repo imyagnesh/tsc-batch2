@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="./styles/contact.css">
   </head>
   <body>
-    <form>
-      <div>
+    <form class="container">
+      <div class="field-wrapper">
         <label for="txtName">Name</label>
         <input
           id="txtName"
@@ -22,7 +22,7 @@
           placeholder="Elon Musk"
         />
       </div>
-      <div>
+      <div class="field-wrapper">
         <label for="txtEmail">Email</label>
         <input
           id="txtEmail"
@@ -31,7 +31,7 @@
           placeholder="Elon.Musk@tesla.com"
         />
       </div>
-      <div>
+      <div class="field-wrapper">
         <label for="txtTel">Phone</label>
         <input
           type="tel"
@@ -40,7 +40,7 @@
           placeholder="8690090417"
         />
       </div>
-      <div>
+      <div class="field-wrapper">
         <label for="txtSubject">Subject</label>
         <input
           id="txtSubject"
@@ -55,14 +55,22 @@
           <option value="test work" />
         </datalist>
       </div>
-      <div>
+      <div class="field-wrapper">
         <label for="txtMessage">Message</label>
-        <textarea id="txtMessage" rows="3"></textarea>
+        <textarea id="txtMessage" rows="4"></textarea>
       </div>
       <div>
         <button class="btn" type="submit">Send Message</button>
       </div>
     </form>
+
+    <div class="wrapper">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+      <div>Item 4</div>
+    </div>
+
     <!-- <form novalidate>
       <div>
         <label for="txtName" hidden>Name</label>

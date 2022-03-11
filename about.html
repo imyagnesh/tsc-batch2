@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <style>
+        .container {
+            max-width: 1258px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .wrapper {
+            display: grid;
+            grid-template-columns:  repeat(3,auto);
+            grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+            height: 100vh;
+            gap: 10px;
+        }
+        .wrapper > div:first-child {
+            grid-column: 2 span;
+            grid-row: 2 span;
+        }
+        .wrapper > div {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="wrapper">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+        <div>Item 7</div>
+        <div>Item 8</div>
+        <div>Item 9</div>
+    </div>
+</div>
+</div>
+</body>
+</html>
