@@ -1,0 +1,117 @@
+:root {
+    --Neutral800: #14142B;
+    --Neutral700: #4E4B66;
+    --Neutral600: #777990;
+    --Neutral500: #B2B4C4;
+    --Neutral400: #D9DBE9;
+    --Neutral300: #EFF0F6;
+    --Neutral200:#F6F7FF;
+    --Neutral100: #ffffff;
+    --Secondary1: #EBF8FF;
+    --Secondary2: #FFF5D2;
+    --Secondary3: #F3FBFF;
+    --Secondary4: #F3EEFF;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1258px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+a {
+    color: var(--Neutral800);
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-family: "robotoRG";
+}
+
+a:hover,
+a:foc {
+    opacity: 0.6;
+}
+
+.btn {
+    display: flex;
+    height: 5rem;
+    padding: 0 4rem;
+    background-color: var(--Neutral800);
+    border-radius: 5rem;
+    border: none;
+    color: var(--Neutral100);
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: "robotoRG";
+    transition: all 300ms linear;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.secondary {
+    background-color: var(--Neutral200);
+    color: var(--Neutral700);
+    box-shadow: none;
+}
+
+.btn.secondary:hover {
+    background-color: var(--Neutral800);
+    color: var(--Neutral100);
+}
+
+.btn.small {
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    border-radius: 2.75rem;
+    font-size: 1rem;
+}
+
+.btn.large {
+    height: 4rem;
+    padding: 0 3rem;
+    border-radius: 4rem;
+    font-size: 1.3rem;
+}
+
+.btn:hover {
+    background-color: var(--Neutral100);
+    box-shadow: 0 4px 20px -5px rgba(20, 20, 43, 0.15);
+    color: var(--Neutral800);
+    transform: translate3d(0px, -6px, 0.1px);
+}
+
+
+
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-wrapper > label {
+    font-family: 'robotoBLD';
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1.125rem;
+}
+
+.field-wrapper > input,
+.field-wrapper > textarea {
+    height: 5rem;
+    border-radius: 4rem;
+    padding: 0 2rem;
+    border-color: var(--Neutral400);
+    border-style: solid;
+}
+
+.field-wrapper > input:focus-visible,
+.field-wrapper > input:hover,
+.field-wrapper > textarea:focus-visible,
+.field-wrapper > textarea:hover {
+    outline-color: var(--Neutral800);
+    border-color: var(--Neutral800);
+}
+

@@ -1,0 +1,283 @@
+/* Element Selector div */
+/* Id Selector #Logo */
+/* class Selector .logo */
+
+/* 
+    fixed measure
+    px
+    cm
+    mm
+    pt
+
+
+    relative measure
+    rem
+    em
+    %
+    vh
+    vw
+
+*/
+
+
+
+/* Header Style */
+header {
+    padding: 2rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+header > div.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header > div.container > nav {
+    display: flex;
+    gap: 2rem;
+}
+
+header > div.container > a.logo {
+    background-color: inherit;
+}
+
+header > div.container > a.email-address {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* main > section {
+    height: 100vh;
+} */
+
+main > section#home {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+main > section#home > div {
+    flex: 1;
+    min-width: 320px;
+}
+main > section#home > div.banner-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+
+main > section#home > div.banner-image {
+    display: flex;
+    justify-content: center;
+}
+
+/* service section */
+
+section#service {
+    height: 100vh;
+    padding : 0px 24px;
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+section#service .service-container {
+    position: relative;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
+
+section#service .box-container {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
+    gap: 2rem;
+    height: 80%;
+    width: 85%;
+}
+
+
+
+section#service .background {
+    position: absolute;
+    height: 100%;
+    width: 60%;
+    top: 0;
+    background-color: #EFF0F6;
+    border-radius: 2rem;
+    z-index: -1;
+}
+
+
+section#service div.box-container .box {
+    display: flex;
+    border-radius: 1.5rem;
+    padding: 48px 48px 48px 40px;
+    align-content: center;
+    justify-content: center;
+    background: white;
+}
+
+section#service div.box-container .box .icon{
+    margin: 0px 28px 0px 0px;
+    border-radius:20px;
+}
+
+section#service div.box-container .box .icon svg{
+    border-radius: 10px;
+}
+
+section#service div.my-service{
+    margin:0px 205px;
+    padding : 0px 24px;
+    text-align: center;
+}
+section#service div.my-service > h2{
+    margin: 0px 0px 20px;
+}
+
+/* abot section */
+
+/* about-section */
+main > section#about {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family: 'robotoBLD';
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 24px;
+    /* padding: 100px 24px 100px 24px; */
+}
+
+.container-box {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 640px) {
+    main > section#home > div.banner-content { 
+        align-items: flex-start;
+        margin-top: 0;
+    }
+}
+
+/* @keyframes anim {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: rotate(45deg);
+        background: yellow;
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.container-box > .box {
+    height: 100px;
+    width: 100px;
+    background-color: dodgerblue;
+    animation: anim 1s linear 1s 5 normal;
+} */
+
+/* .container-box > .box:hover {
+    transform: rotate(45deg);
+    background: red;
+} */
+
+
+
+main > section#about > div.banner-image {
+    display: flex;
+    max-width: 100%;
+    justify-content: center;
+    align-content: center;
+}
+
+main > section#about > div.banner-content {
+    margin: 0px 0px 0px 80px;
+}
+
+
+main > section#about > div.banner-image > img {
+    border-radius: 20px;
+}
+
+
+/* end about section */
+
+/* resume section */
+
+section#resume {
+    height: 100vh;
+    padding: 0px 24px;
+
+}
+
+section#resume .resume-container{
+    position: relative;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+section#resume .resume-box-container{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
+    gap: 2rem;
+    height: 80%;
+    width:80%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: red;
+}
+
+section.resume-container .background{
+    position: absolute;
+    height: 100%;
+    width: 60%;
+    top: 0;
+    border-radius: 2rem;
+    z-index: -1;
+
+}
+
+section#resume div.resume-box-container .box{
+    display: flex;
+    border-radius: 1.5rem;
+    padding : 48px 48px 48px 40px;
+    align-content: center;
+    justify-content: center;
+    background: white;
+}
+
+section#service div.resume-box-container .box .icon{
+    margin: 0px 28px 0px 0px;
+    border-radius:20px;
+}
+
+section#service div.resume-box-container .box .icon svg{
+    border-radius: 10px;
+}
+/* end resume section */
+
