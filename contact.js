@@ -8,7 +8,7 @@ const validate = (elements) => {
             const label = element.parentElement.getElementsByTagName("label");
             error.innerHTML = `${label[0].innerText} is Required`; 
             error.style = "color:red; font-size: 12px; font-weight: 300";
-            element.parentNode.appendChild(error)
+            element̨̃.parentNode.appendChild(error)
         }
     }
 }
