@@ -1,0 +1,19 @@
+{
+  "name": "tsc-new",
+  "version": "1.0.0",
+  "description": "react tutorial",
+  "main": "index.js",
+  "repository": "https://github.com/imyagnesh/tsc-batch2.git",
+  "author": "Yagnesh Modh <hey@yagneshmodh.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  }
+}
