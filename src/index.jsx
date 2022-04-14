@@ -30,9 +30,38 @@ const color = 'white';
 
 // React JS Component Will re-render only when props and state value change
 
+// let counter = 0;
 class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     counter: 0,
+  //   };
+  //   // this.incrementCounter = this.incrementCounter.bind(this);
+  // }
+
+  state = {
+    counter: 0,
+  };
+
+  incrementCounter = () => {
+    // const { counter } = this.state; // cs
+    // // sst
+    // this.setState({
+    //   counter: counter + 1,
+    // });
+
+    // ssf
+    this.setState(({ counter }) => ({ counter: counter + 1 }));
+  };
+
   render() {
     const { name, caption } = this.props;
+    const { counter } = this.state;
+
+    console.log('new Counter value is', counter);
+
+    console.log('called render method');
 
     return (
       <div className="container">
@@ -46,6 +75,12 @@ class App extends Component {
         </h1>
         <h2>{caption}</h2>
         <input type="checkbox" />
+        <p>=============================================</p>
+        <h1>Counter Example</h1>
+        <h2>{counter}</h2>
+        <button type="button" onClick={this.incrementCounter}>
+          Increment Counter
+        </button>
       </div>
     );
   }
