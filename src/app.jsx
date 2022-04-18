@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Child1 from './Child1';
+import Child2 from './Child2';
 
 // Four Stages of Lifecycle Method
 // 1. Mounting
@@ -13,11 +15,17 @@ import React, { Component } from 'react';
 // 2. if I want to use Life cycle method then we have to use class component
 // 3. To Manipulate data
 
-// Mounting
+// Mounting Stage
+
 // 1. constructor
 // 2. getDerivedStateFromProps
 // 3. render
 // 4. componentDidMount
+
+// Updating Stage (whenever props or state change Updating Stage will fire)
+// 1. getDerivedStateFromProps
+// 2. shouldComponentUpdate
+// 3. render
 
 class App extends Component {
   // Use of the constructor
@@ -37,7 +45,7 @@ class App extends Component {
     this.state = {
       counter: 0,
       user: [],
-      // greetUser: `Hello ${props.name}`,
+      greetUser: `Hello ${props.name}`,
     };
     console.log(document.getElementById('name'));
     // API Call
@@ -46,13 +54,13 @@ class App extends Component {
   // To derive state value base on Old Props value or state value
 
   // Note: this will call everytime whenever state or prop value change
-  static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps');
-    console.log(document.getElementById('name'));
-    return {
-      greetUser: `Hello ${props.name}`,
-    };
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log('getDerivedStateFromProps');
+  //   console.log(document.getElementById('name'));
+  //   return {
+  //     greetUser: `Hello ${props.name}`,
+  //   };
+  // }
 
   // 1. Manipulate DOM element
   // 2. define event listeners
@@ -88,6 +96,12 @@ class App extends Component {
     }));
   };
 
+  changeGreetUser = () => {
+    this.setState((undefine, { name }) => ({
+      greetUser: `Bonjour ${name}`,
+    }));
+  };
+
   // to map html to DOM(Document Object Model)
   render() {
     console.log(this.state);
@@ -104,6 +118,12 @@ class App extends Component {
         <button type="button" onClick={this.decrement}>
           Decrement
         </button>
+        <button type="button" onClick={this.changeGreetUser}>
+          Change Greet user
+        </button>
+
+        <Child1 counter={counter} />
+        <Child2 />
       </div>
     );
   }
