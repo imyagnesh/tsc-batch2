@@ -26,6 +26,13 @@ import Child2 from './Child2';
 // 1. getDerivedStateFromProps
 // 2. shouldComponentUpdate
 // 3. render
+// 4. getSnapshotBeforeUpdate
+// 5. componentDidUpdate
+
+// Unmounting
+// 1. componentWillUnmount
+
+// Error
 
 class App extends Component {
   // Use of the constructor
@@ -44,7 +51,10 @@ class App extends Component {
     console.log('Render constructor');
     this.state = {
       counter: 0,
-      user: [],
+      user: {
+        name: 'Yagnesh',
+        age: 30,
+      },
       greetUser: `Hello ${props.name}`,
     };
     console.log(document.getElementById('name'));
@@ -102,15 +112,26 @@ class App extends Component {
     }));
   };
 
+  changeUser = () => {
+    const { user } = this.state;
+    const newObj = { ...user, name: 'Rohit' };
+
+    // user.name = 'Rohit';
+    this.setState({
+      user: newObj,
+    });
+  };
+
   // to map html to DOM(Document Object Model)
   render() {
     console.log(this.state);
     console.log('Render App Component');
-    const { counter, greetUser } = this.state;
+    const { counter, greetUser, user } = this.state;
 
     return (
       <div>
         <h1 id="name">{greetUser}</h1>
+        <h1 id="name">{user.name}</h1>
         <h1>{counter}</h1>
         <button type="button" onClick={this.increment}>
           Increment
@@ -122,7 +143,11 @@ class App extends Component {
           Change Greet user
         </button>
 
-        <Child1 counter={counter} />
+        <button type="button" onClick={this.changeUser}>
+          Change User
+        </button>
+
+        {counter < 5 && <Child1 user={user} />}
         <Child2 />
       </div>
     );
