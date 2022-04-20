@@ -33,6 +33,7 @@ import Child2 from './Child2';
 // 1. componentWillUnmount
 
 // Error
+// getDerivedStateFromError
 
 class App extends Component {
   // Use of the constructor
@@ -75,6 +76,18 @@ class App extends Component {
   // 1. Manipulate DOM element
   // 2. define event listeners
   // 3. Display Data on Page Load
+
+  static getDerivedStateFromError(error) {
+    return {
+      error,
+    };
+  }
+
+  componentDidCatch(error, info) {
+    // login send this error info to server
+    console.log('error', error);
+    console.log('info', info);
+  }
 
   // Note: Call Only once
   componentDidMount() {
@@ -126,7 +139,13 @@ class App extends Component {
   render() {
     console.log(this.state);
     console.log('Render App Component');
-    const { counter, greetUser, user } = this.state;
+    const { counter, greetUser, user, error } = this.state;
+
+    console.log('error', error);
+
+    if (error) {
+      return <h1>{error.message}</h1>;
+    }
 
     return (
       <div>
