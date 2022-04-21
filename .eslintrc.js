@@ -14,6 +14,9 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'global-require': 0,
+    'arrow-parens': 0,
+    'import/no-extraneous-dependencies': 0,
     'react/state-in-constructor': 0,
   },
 };
