@@ -15,6 +15,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'global-require': 0,
+    'object-curly-newline': 0,
     'arrow-parens': 0,
     'operator-linebreak': 0,
     'import/no-extraneous-dependencies': 0,
