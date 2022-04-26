@@ -12,51 +12,99 @@ class Todo extends PureComponent {
     error: '',
   };
 
-  addTodo = event => {
-    event.preventDefault();
-    const todoText = this.inputRef.current.value;
-    if (todoText) {
-      this.setState(
-        ({ todoList }) => ({
-          todoList: [...todoList, { id: new Date().valueOf(), text: todoText, isDone: false }],
-          error: '',
-        }),
-        () => {
-          this.inputRef.current.value = '';
+  async componentDidMount() {
+    this.loadTodoList('all');
+  }
+
+  loadTodoList = async filterType => {
+    try {
+      let url = 'http://localhost:3000/todoList';
+      if (filterType !== 'all') {
+        url = `${url}?isDone=${filterType === 'completed'}`;
+      }
+
+      const res = await fetch(url);
+      const json = await res.json();
+      this.setState({ todoList: json });
+      console.log(json);
+    } catch (error) {}
+  };
+
+  // 1. add async
+  // 2. add try/catch
+
+  addTodo = async event => {
+    try {
+      event.preventDefault();
+      const todoText = this.inputRef.current.value;
+      const res = await fetch('http://localhost:3000/todoList', {
+        method: 'POST',
+        body: JSON.stringify({ text: todoText, isDone: false }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      );
-    } else {
-      this.setState({ error: 'Please enter todotext' });
-    }
+      });
+      const json = await res.json();
+
+      if (todoText) {
+        this.setState(
+          ({ todoList }) => ({
+            todoList: [...todoList, json],
+            error: '',
+          }),
+          () => {
+            this.inputRef.current.value = '';
+          },
+        );
+      } else {
+        this.setState({ error: 'Please enter todotext' });
+      }
+    } catch (error) {}
   };
 
-  toggleComplete = id => {
-    this.setState(({ todoList }) => {
-      const index = todoList.findIndex(x => x.id === id);
-      return {
-        todoList: [
-          ...todoList.slice(0, index),
-          { ...todoList[index], isDone: !todoList[index].isDone },
-          ...todoList.slice(index + 1),
-        ],
-      };
-    });
+  toggleComplete = async item => {
+    try {
+      const res = await fetch(`http://localhost:3000/todoList/${item.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...item, isDone: !item.isDone }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+
+      const json = await res.json();
+
+      this.setState(({ todoList }) => {
+        const index = todoList.findIndex(x => x.id === item.id);
+        return {
+          todoList: [...todoList.slice(0, index), json, ...todoList.slice(index + 1)],
+        };
+      });
+    } catch (error) {}
   };
 
-  deleteTodo = id => {
-    this.setState(({ todoList }) => {
-      const index = todoList.findIndex(x => x.id === id);
-      return {
-        todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
-      };
-    });
+  deleteTodo = async id => {
+    try {
+      await fetch(`http://localhost:3000/todoList/${id}`, {
+        method: 'DELETE',
+      });
+
+      this.setState(({ todoList }) => {
+        const index = todoList.findIndex(x => x.id === id);
+        return {
+          todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
+        };
+      });
+    } catch (error) {}
   };
 
-  filterTodo = filterType => {
-    this.setState({
-      filterType,
-    });
-  };
+  // filterTodo = filterType => {
+  //   this.setState({
+  //     filterType,
+  //   });
+  // };
 
   render() {
     const { todoList, filterType, error } = this.state;
@@ -69,10 +117,9 @@ class Todo extends PureComponent {
         <TodoList
           toggleComplete={this.toggleComplete}
           deleteTodo={this.deleteTodo}
-          filterType={filterType}
           todoList={todoList}
         />
-        <TodoFilter filterTodo={this.filterTodo} filterType={filterType} />
+        <TodoFilter filterTodo={this.loadTodoList} filterType={filterType} />
       </div>
     );
   }
