@@ -1,7 +1,7 @@
 import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const TodoForm = forwardRef(({ addTodoHandle }, ref) => (
+const TodoForm = forwardRef(({ addTodoHandle, isAdding }, ref) => (
   <form onSubmit={addTodoHandle}>
     <input
       ref={ref}
@@ -10,7 +10,11 @@ const TodoForm = forwardRef(({ addTodoHandle }, ref) => (
       placeholder="Write your todo here..."
       className="rounded-l-md"
     />
-    <button type="submit" className="btn-primary rounded-l-none">
+    <button
+      type="submit"
+      disabled={isAdding}
+      className="btn-primary rounded-l-none disabled:bg-slate-400"
+    >
       Add Todo
     </button>
   </form>
@@ -18,6 +22,7 @@ const TodoForm = forwardRef(({ addTodoHandle }, ref) => (
 
 TodoForm.propTypes = {
   addTodoHandle: PropTypes.func.isRequired,
+  isAdding: PropTypes.bool.isRequired,
 };
 
 export default memo(TodoForm);

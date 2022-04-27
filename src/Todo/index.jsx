@@ -9,6 +9,9 @@ class Todo extends PureComponent {
   state = {
     todoList: [],
     filterType: 'all',
+    isLoading: false,
+    isAdding: false,
+    isUpdating: [],
     error: '',
   };
 
@@ -18,6 +21,8 @@ class Todo extends PureComponent {
 
   loadTodoList = async filterType => {
     try {
+      this.setState({ isLoading: true });
+
       let url = 'http://localhost:3000/todoList';
       if (filterType !== 'all') {
         url = `${url}?isDone=${filterType === 'completed'}`;
@@ -25,9 +30,10 @@ class Todo extends PureComponent {
 
       const res = await fetch(url);
       const json = await res.json();
-      this.setState({ todoList: json });
-      console.log(json);
-    } catch (error) {}
+      this.setState({ todoList: json, isLoading: false });
+    } catch (err) {
+      this.setState({ error: err.message, isLoading: false });
+    }
   };
 
   // 1. add async
@@ -35,6 +41,7 @@ class Todo extends PureComponent {
 
   addTodo = async event => {
     try {
+      this.setState({ isAdding: true });
       event.preventDefault();
       const todoText = this.inputRef.current.value;
       const res = await fetch('http://localhost:3000/todoList', {
@@ -60,11 +67,19 @@ class Todo extends PureComponent {
       } else {
         this.setState({ error: 'Please enter todotext' });
       }
-    } catch (error) {}
+    } catch (err) {
+      this.setState({ error: err.message });
+    } finally {
+      this.setState({ isAdding: false });
+    }
   };
 
   toggleComplete = async item => {
     try {
+      this.setState(({ isUpdating }) => ({
+        isUpdating: [...isUpdating, { loading: true, id: item.id }],
+      }));
+
       const res = await fetch(`http://localhost:3000/todoList/${item.id}`, {
         method: 'PUT',
         body: JSON.stringify({ ...item, isDone: !item.isDone }),
@@ -82,7 +97,12 @@ class Todo extends PureComponent {
           todoList: [...todoList.slice(0, index), json, ...todoList.slice(index + 1)],
         };
       });
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      this.setState(({ isUpdating }) => ({
+        isUpdating: isUpdating.filter(x => x.id !== item.id),
+      }));
+    }
   };
 
   deleteTodo = async id => {
@@ -107,17 +127,24 @@ class Todo extends PureComponent {
   // };
 
   render() {
-    const { todoList, filterType, error } = this.state;
+    const { todoList, filterType, error, isLoading, isAdding, isUpdating } = this.state;
 
     return (
-      <div className="flex flex-col items-center h-screen">
+      <div className="relative flex flex-col items-center h-screen">
+        {isLoading && (
+          <div className="absolute inset-0 h-full flex justify-center items-center bg-slate-400 opacity-70">
+            <h1 className="text-white text-2xl font-bold">Loading...</h1>
+          </div>
+        )}
+
         <h1 className="text-red-500 font-bold my-10 text-xl md:text-2xl lg:text-5xl">Todo App</h1>
         {error && <p className="text-red-500 text-lg text-center">{error}</p>}
-        <TodoForm addTodoHandle={this.addTodo} ref={this.inputRef} />
+        <TodoForm addTodoHandle={this.addTodo} ref={this.inputRef} isAdding={isAdding} />
         <TodoList
           toggleComplete={this.toggleComplete}
           deleteTodo={this.deleteTodo}
           todoList={todoList}
+          isUpdating={isUpdating}
         />
         <TodoFilter filterTodo={this.loadTodoList} filterType={filterType} />
       </div>

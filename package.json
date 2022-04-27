@@ -8,6 +8,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open",
+    "start:server": "json-server --watch db.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
