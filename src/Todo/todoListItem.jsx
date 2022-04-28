@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-function TodoListItem({ item, toggleComplete, deleteTodo, isUpdating }) {
+function TodoListItem({ item, toggleComplete, deleteTodo, isUpdating, isDeleting }) {
   return (
     <div className="flex items-center m-4">
       <input
@@ -12,7 +12,12 @@ function TodoListItem({ item, toggleComplete, deleteTodo, isUpdating }) {
         className="disabled:text-gray-400 disabled:border-gray-200"
       />
       <p className={`flex-1 px-4 truncate ${item.isDone ? 'line-through' : ''}`}>{item.text}</p>
-      <button type="button" className="btn-primary" onClick={() => deleteTodo(item.id)}>
+      <button
+        type="button"
+        disabled={!!isDeleting}
+        className="btn-primary disabled:bg-gray-400"
+        onClick={() => deleteTodo(item.id)}
+      >
         Delete
       </button>
     </div>
@@ -31,10 +36,15 @@ TodoListItem.propTypes = {
     id: PropTypes.number,
     loading: PropTypes.bool,
   }),
+  isDeleting: PropTypes.exact({
+    id: PropTypes.number,
+    loading: PropTypes.bool,
+  }),
 };
 
 TodoListItem.defaultProps = {
   isUpdating: undefined,
+  isDeleting: undefined,
 };
 
 export default memo(TodoListItem);

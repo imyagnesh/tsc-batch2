@@ -1,4 +1,5 @@
 import React, { PureComponent, createRef } from 'react';
+import Error from './error';
 import TodoFilter from './todoFilter';
 import TodoForm from './todoForm';
 import TodoList from './todoList';
@@ -9,20 +10,45 @@ class Todo extends PureComponent {
   state = {
     todoList: [],
     filterType: 'all',
-    isLoading: false,
-    isAdding: false,
-    isUpdating: [],
-    error: '',
+    appStatus: [],
   };
 
   async componentDidMount() {
     this.loadTodoList('all');
   }
 
-  loadTodoList = async filterType => {
-    try {
-      this.setState({ isLoading: true });
+  loadingState = (type, id) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: [
+        ...appStatus,
+        {
+          type,
+          id,
+          status: 'LOADING',
+          errorMessage: '',
+        },
+      ],
+    }));
+  };
 
+  successState = (type, id) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: appStatus.filter(x => !(x.type === type && x.id === id)),
+    }));
+  };
+
+  errorState = (type, err, id) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: appStatus.map(x =>
+        x.type === type && x.id === id ? { ...x, status: 'ERROR', errorMessage: err.message } : x,
+      ),
+    }));
+  };
+
+  loadTodoList = async filterType => {
+    const type = 'LOAD_TODO';
+    try {
+      this.loadingState(type);
       let url = 'http://localhost:3000/todoList';
       if (filterType !== 'all') {
         url = `${url}?isDone=${filterType === 'completed'}`;
@@ -30,9 +56,10 @@ class Todo extends PureComponent {
 
       const res = await fetch(url);
       const json = await res.json();
-      this.setState({ todoList: json, isLoading: false });
+      this.setState({ todoList: json });
+      this.successState(type);
     } catch (err) {
-      this.setState({ error: err.message, isLoading: false });
+      this.errorState(type, err);
     }
   };
 
@@ -40,8 +67,9 @@ class Todo extends PureComponent {
   // 2. add try/catch
 
   addTodo = async event => {
+    const type = 'ADD_TODO';
     try {
-      this.setState({ isAdding: true });
+      this.loadingState(type);
       event.preventDefault();
       const todoText = this.inputRef.current.value;
       const res = await fetch('http://localhost:3000/todoList', {
@@ -58,27 +86,24 @@ class Todo extends PureComponent {
         this.setState(
           ({ todoList }) => ({
             todoList: [...todoList, json],
-            error: '',
           }),
           () => {
             this.inputRef.current.value = '';
           },
         );
+        this.successState(type);
       } else {
-        this.setState({ error: 'Please enter todotext' });
+        this.errorState(type, new Error('Please enter todo text'));
       }
     } catch (err) {
-      this.setState({ error: err.message });
-    } finally {
-      this.setState({ isAdding: false });
+      this.errorState(type, err);
     }
   };
 
   toggleComplete = async item => {
+    const type = 'UPDATE_TODO';
     try {
-      this.setState(({ isUpdating }) => ({
-        isUpdating: [...isUpdating, { loading: true, id: item.id }],
-      }));
+      this.loadingState(type, item.id);
 
       const res = await fetch(`http://localhost:3000/todoList/${item.id}`, {
         method: 'PUT',
@@ -97,16 +122,17 @@ class Todo extends PureComponent {
           todoList: [...todoList.slice(0, index), json, ...todoList.slice(index + 1)],
         };
       });
+      this.successState(type, item.id);
     } catch (error) {
-    } finally {
-      this.setState(({ isUpdating }) => ({
-        isUpdating: isUpdating.filter(x => x.id !== item.id),
-      }));
+      this.errorState(type, error, item.id);
     }
   };
 
   deleteTodo = async id => {
+    const type = 'DELETE_TODO';
     try {
+      this.loadingState(type, id);
+
       await fetch(`http://localhost:3000/todoList/${id}`, {
         method: 'DELETE',
       });
@@ -117,7 +143,10 @@ class Todo extends PureComponent {
           todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
         };
       });
-    } catch (error) {}
+      this.successState(type, id);
+    } catch (error) {
+      this.errorState(type, error, id);
+    }
   };
 
   // filterTodo = filterType => {
@@ -126,8 +155,17 @@ class Todo extends PureComponent {
   //   });
   // };
 
+  clearError = id => {
+    this.setState(({ appStatus }) => ({
+      appStatus: appStatus.filter(x => x.id !== id),
+    }));
+  };
+
   render() {
-    const { todoList, filterType, error, isLoading, isAdding, isUpdating } = this.state;
+    const { todoList, filterType, appStatus } = this.state;
+
+    const isLoading = appStatus.some(x => x.type === 'LOAD_TODO' && x.status === 'LOADING');
+    const errorList = appStatus.filter(x => x.status === 'ERROR');
 
     return (
       <div className="relative flex flex-col items-center h-screen">
@@ -138,15 +176,20 @@ class Todo extends PureComponent {
         )}
 
         <h1 className="text-red-500 font-bold my-10 text-xl md:text-2xl lg:text-5xl">Todo App</h1>
-        {error && <p className="text-red-500 text-lg text-center">{error}</p>}
-        <TodoForm addTodoHandle={this.addTodo} ref={this.inputRef} isAdding={isAdding} />
+        <TodoForm
+          addTodoHandle={this.addTodo}
+          ref={this.inputRef}
+          isAdding={appStatus.some(x => x.type === 'ADD_TODO' && x.status === 'LOADING')}
+        />
         <TodoList
           toggleComplete={this.toggleComplete}
           deleteTodo={this.deleteTodo}
           todoList={todoList}
-          isUpdating={isUpdating}
+          isUpdating={appStatus.filter(x => x.type === 'UPDATE_TODO' && x.status === 'LOADING')}
+          isDeleting={appStatus.filter(x => x.type === 'DELETE_TODO' && x.status === 'LOADING')}
         />
         <TodoFilter filterTodo={this.loadTodoList} filterType={filterType} />
+        {errorList.length > 0 && <Error errorList={errorList} clearError={this.clearError} />}
       </div>
     );
   }

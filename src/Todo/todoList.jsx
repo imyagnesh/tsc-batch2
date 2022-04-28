@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import TodoListItem from './todoListItem';
 
-function TodoList({ toggleComplete, deleteTodo, todoList, isUpdating }) {
+function TodoList({ toggleComplete, deleteTodo, todoList, isUpdating, isDeleting }) {
   return (
     <div className="w-full flex-1 overflow-y-auto">
       {todoList.map(item => (
@@ -12,6 +12,7 @@ function TodoList({ toggleComplete, deleteTodo, todoList, isUpdating }) {
           toggleComplete={toggleComplete}
           deleteTodo={deleteTodo}
           isUpdating={isUpdating.find(x => x.id === item.id)}
+          isDeleting={isDeleting.find(x => x.id === item.id)}
         />
       ))}
     </div>
@@ -29,6 +30,12 @@ TodoList.propTypes = {
     }),
   ).isRequired,
   isUpdating: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      loading: PropTypes.bool,
+    }),
+  ).isRequired,
+  isDeleting: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       loading: PropTypes.bool,
