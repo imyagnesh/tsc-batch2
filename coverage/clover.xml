@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1651563200860" clover="3.2.0">
-  <project timestamp="1651563200860" name="All files">
-    <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3" elements="10" coveredelements="10" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
+<coverage generated="1651572012480" clover="3.2.0">
+  <project timestamp="1651572012480" name="All files">
+    <metrics statements="10" coveredstatements="10" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7" elements="25" coveredelements="25" complexity="0" loc="10" ncloc="10" packages="1" files="2" classes="2"/>
+    <file name="todoFilter.jsx" path="/Users/yagneshmodh/Desktop/tsc-new/src/Todo/todoFilter.jsx">
+      <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+      <line num="9" count="7" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+    </file>
     <file name="todoListItem.jsx" path="/Users/yagneshmodh/Desktop/tsc-new/src/Todo/todoListItem.jsx">
       <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
       <line num="5" count="6" type="stmt"/>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for todoListItem.jsx</title>
+    <title>Code coverage report for todoFilter.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> todoListItem.jsx</h1>
+        <h1><a href="index.html">All files</a> todoFilter.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -32,14 +32,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -108,42 +108,21 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,8 +139,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,59 +156,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 &nbsp;
-function TodoListItem({ item, toggleComplete, deleteTodo, isUpdating, isDeleting }) {
+// check 3 buttons are there or not
+// check button's text
+// base on filter type check class name is there or not
+// base on button click check what data is passing to function
+function TodoFilter({ filterTodo, filterType }) {
   return (
-    &lt;div className="flex items-center m-4"&gt;
-      &lt;input
-        data-testid="isDone-checkbox"
-        type="checkbox"
-        disabled={!!isUpdating}
-        checked={item.isDone}
-        onChange={() =&gt; toggleComplete(item)}
-        className="disabled:text-gray-400 disabled:border-gray-200"
-      /&gt;
-      &lt;p
-        data-testid="todo-text"
-        className={`flex-1 px-4 truncate ${item.isDone ? 'line-through' : ''}`}
-      &gt;
-        {item.text}
-      &lt;/p&gt;
+    &lt;div className="flex w-full"&gt;
       &lt;button
         type="button"
-        disabled={!!isDeleting}
-        className="btn-primary disabled:bg-gray-400"
-        onClick={() =&gt; deleteTodo(item.id)}
+        className={`btn-primary rounded-none flex-1 ${filterType === 'all' ? 'bg-blue-700' : ''}`}
+        onClick={() =&gt; filterTodo('all')}
       &gt;
-        Delete Item
+        All
+      &lt;/button&gt;
+      &lt;button
+        type="button"
+        className={`btn-primary rounded-none flex-1 ${
+          filterType === 'pending' ? 'bg-blue-700' : ''
+        }`}
+        onClick={() =&gt; filterTodo('pending')}
+      &gt;
+        Pending
+      &lt;/button&gt;
+      &lt;button
+        type="button"
+        className={`btn-primary rounded-none flex-1 ${
+          filterType === 'completed' ? 'bg-blue-700' : ''
+        }`}
+        onClick={() =&gt; filterTodo('completed')}
+      &gt;
+        Completed
       &lt;/button&gt;
     &lt;/div&gt;
   );
 }
 &nbsp;
-TodoListItem.propTypes = {
-  toggleComplete: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  item: PropTypes.exact({
-    id: PropTypes.number,
-    text: PropTypes.string,
-    isDone: PropTypes.bool,
-  }).isRequired,
-  isUpdating: PropTypes.exact({
-    id: PropTypes.number,
-    loading: PropTypes.bool,
-  }),
-  isDeleting: PropTypes.exact({
-    id: PropTypes.number,
-    loading: PropTypes.bool,
-  }),
+TodoFilter.propTypes = {
+  filterType: PropTypes.oneOf(['all', 'pending', 'completed']).isRequired,
+  filterTodo: PropTypes.func.isRequired,
 };
 &nbsp;
-TodoListItem.defaultProps = {
-  isUpdating: undefined,
-  isDeleting: undefined,
-};
-&nbsp;
-export default memo(TodoListItem);
+export default memo(TodoFilter);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
