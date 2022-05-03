@@ -56,7 +56,7 @@ class Todo extends PureComponent {
 
       const res = await fetch(url);
       const json = await res.json();
-      this.setState({ todoList: json });
+      this.setState({ todoList: json, filterType });
       this.successState(type);
     } catch (err) {
       this.errorState(type, err);
@@ -148,12 +148,6 @@ class Todo extends PureComponent {
       this.errorState(type, error, id);
     }
   };
-
-  // filterTodo = filterType => {
-  //   this.setState({
-  //     filterType,
-  //   });
-  // };
 
   clearError = id => {
     this.setState(({ appStatus }) => ({

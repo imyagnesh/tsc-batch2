@@ -5,20 +5,26 @@ function TodoListItem({ item, toggleComplete, deleteTodo, isUpdating, isDeleting
   return (
     <div className="flex items-center m-4">
       <input
+        data-testid="isDone-checkbox"
         type="checkbox"
         disabled={!!isUpdating}
         checked={item.isDone}
         onChange={() => toggleComplete(item)}
         className="disabled:text-gray-400 disabled:border-gray-200"
       />
-      <p className={`flex-1 px-4 truncate ${item.isDone ? 'line-through' : ''}`}>{item.text}</p>
+      <p
+        data-testid="todo-text"
+        className={`flex-1 px-4 truncate ${item.isDone ? 'line-through' : ''}`}
+      >
+        {item.text}
+      </p>
       <button
         type="button"
         disabled={!!isDeleting}
         className="btn-primary disabled:bg-gray-400"
         onClick={() => deleteTodo(item.id)}
       >
-        Delete
+        Delete Item
       </button>
     </div>
   );

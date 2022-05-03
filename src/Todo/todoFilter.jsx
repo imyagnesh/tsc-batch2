@@ -1,6 +1,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
+// check 3 buttons are there or not
+// check button's text
+// base on filter type check class name is there or not
+// base on button click check what data is passing to function
 function TodoFilter({ filterTodo, filterType }) {
   return (
     <div className="flex w-full">

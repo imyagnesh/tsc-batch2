@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take snapshot of the component 1`] = `
+<div
+  class="flex items-center m-4"
+>
+  <input
+    class="disabled:text-gray-400 disabled:border-gray-200"
+    data-testid="isDone-checkbox"
+    type="checkbox"
+  />
+  <p
+    class="flex-1 px-4 truncate "
+    data-testid="todo-text"
+  >
+    asdfasdf
+  </p>
+  <button
+    class="btn-primary disabled:bg-gray-400"
+    type="button"
+  >
+    Delete Item
+  </button>
+</div>
+`;
