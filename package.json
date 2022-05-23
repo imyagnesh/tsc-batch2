@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve --open",
+    "start": "webpack serve",
     "start:server": "json-server --watch db.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -44,9 +44,12 @@
     "webpack-dev-server": "^4.8.1"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.2",
+    "@heroicons/react": "^1.0.6",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-addons-shallow-compare": "^15.6.3",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-router-dom": "6"
   }
 }

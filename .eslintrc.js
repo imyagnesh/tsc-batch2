@@ -24,5 +24,6 @@ module.exports = {
     'function-paren-newline': 0,
     'import/no-extraneous-dependencies': 0,
     'react/state-in-constructor': 0,
+    'react/jsx-wrap-multilines': 0,
   },
 };

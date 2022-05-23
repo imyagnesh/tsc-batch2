@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
-  output: { path: path.resolve(__dirname, 'dist'), filename: 'main.js' },
+  output: { path: path.resolve(__dirname, 'dist'), filename: 'main.js', publicPath: '/' },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
@@ -30,4 +30,8 @@ module.exports = {
     ],
   },
   mode: 'development',
+  devServer: {
+    historyApiFallback: true,
+    open: true,
+  },
 };
