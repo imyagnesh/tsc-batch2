@@ -40,11 +40,15 @@ TodoListItem.propTypes = {
   }).isRequired,
   isUpdating: PropTypes.exact({
     id: PropTypes.number,
-    loading: PropTypes.bool,
+    type: PropTypes.string,
+    status: PropTypes.string,
+    errorMessage: PropTypes.string,
   }),
   isDeleting: PropTypes.exact({
     id: PropTypes.number,
-    loading: PropTypes.bool,
+    type: PropTypes.string,
+    status: PropTypes.string,
+    errorMessage: PropTypes.string,
   }),
 };
 
