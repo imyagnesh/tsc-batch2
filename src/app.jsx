@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ThemeProvider, { ThemeContext } from './context/themeContext';
 import AuthLayout from './layouts/authLayout';
 import MainLayout from './layouts/mainLayout';
 // import Categories from './pages/Categories/categories';
