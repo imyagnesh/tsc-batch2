@@ -10,7 +10,7 @@ function LinkUI({ children, ...props }) {
 }
 
 LinkUI.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default memo(LinkUI);
