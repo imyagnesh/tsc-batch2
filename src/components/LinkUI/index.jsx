@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
-function LinkUI({ ...props }) {
-  return <a {...props} className="font-medium text-indigo-600 hover:text-indigo-500" />;
+function LinkUI({ children, ...props }) {
+  return (
+    <a className="font-medium text-indigo-600 hover:text-indigo-500" {...props}>
+      {children}
+    </a>
+  );
 }
 
-export default LinkUI;
+LinkUI.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default memo(LinkUI);

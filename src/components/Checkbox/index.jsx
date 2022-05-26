@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
 function Checkbox({ id, label, ...props }) {
   return (
@@ -16,4 +17,9 @@ function Checkbox({ id, label, ...props }) {
   );
 }
 
-export default Checkbox;
+Checkbox.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
+export default memo(Checkbox);

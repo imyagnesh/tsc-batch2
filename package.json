@@ -9,7 +9,7 @@
     "build": "webpack",
     "start": "webpack serve",
     "start:server": "json-server --watch db.json",
-    "lint": "eslint .",
+    "lint": "eslint './src/**'",
     "lint:fix": "eslint . --fix",
     "test": "jest"
   },

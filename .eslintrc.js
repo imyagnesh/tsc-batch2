@@ -26,5 +26,6 @@ module.exports = {
     'react/state-in-constructor': 0,
     'react/jsx-wrap-multilines': 0,
     'jsx-a11y/label-has-associated-control': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function AuthLayout() {
   return (
@@ -15,10 +15,10 @@ function AuthLayout() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
-            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+            {'Or '}
+            <Link to="register" className="font-medium text-indigo-600 hover:text-indigo-500">
               start your 14-day free trial
-            </a>
+            </Link>
           </p>
         </div>
         <Suspense fallback={<h1>Loading...</h1>}>
