@@ -2,7 +2,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-function TextInput({ id, className, placeholder, error, ...props }) {
+function TextInput({ field, form: { touched, errors }, id, className, placeholder, ...props }) {
+  const error = touched[field.name] && errors[field.name];
   return (
     <div>
       <label htmlFor={id} className="sr-only">
@@ -18,9 +19,10 @@ function TextInput({ id, className, placeholder, error, ...props }) {
           },
         )}
         placeholder={placeholder}
+        {...field}
         {...props}
       />
-      {!!error && <p className="text-red-400 font-light text-sm my-1">error</p>}
+      {!!error && <p className="text-red-400 font-light text-sm my-1">{error}</p>}
     </div>
   );
 }
