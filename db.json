@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "email": "yagnesh.modh@gmail.com",
+      "password": "$2a$10$gFigspqgz.88v5iOGBBAfelOXunDyQKURgUte351sdAd5JCeCzI26",
+      "name": "YAGNESH MODH",
+      "id": 1
+    }
+  ],
   "todoList": [
     {
       "text": "asdfda",

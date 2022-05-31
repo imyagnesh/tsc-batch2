@@ -67,8 +67,18 @@ export const registerFields = [
       let error = '';
       if (!value) {
         error = 'Required...';
+      } else if (value !== password.value) {
+        error = 'password and confirm password should be same';
       }
       return error;
     },
   },
 ];
+
+// export const validateRegister = values => {
+//   const errors = {};
+//   if (values.password !== values.confirmPassword) {
+//     errors.confirmPassword = 'password and confirm password should be same';
+//   }
+//   return errors;
+// };
