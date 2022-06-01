@@ -7,15 +7,15 @@ import { registerFields, registerInitValues } from './fields';
 function Register() {
   const navigate = useNavigate();
 
-  const onSubmit = async values => {
+  const onSubmit = async (values, actions) => {
     try {
       const { confirmPassword, ...rest } = values;
       const res = await axiosInstance.post('register', rest);
-
-      console.log(res.data);
+      sessionStorage.setItem('@app_token', JSON.stringify(res));
+      actions.resetForm();
       navigate('/');
     } catch (error) {
-      console.log(error.message);
+      actions.setErrors({ serverError: error.message });
     }
   };
 

@@ -3,6 +3,7 @@ import TextInput from '../../components/TextInput';
 export const loginInitValues = {
   email: '',
   password: '',
+  rememberMe: false,
 };
 
 export const loginFields = [

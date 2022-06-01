@@ -5,8 +5,10 @@ import Button from '../Button';
 function CustomForm({ fields, btnText, children, ...props }) {
   return (
     <Formik {...props}>
-      {({ dirty, isValid }) => (
+      {({ dirty, isValid, errors }) => (
         <Form className="mt-8 space-y-6">
+          {errors.serverError && <p className="text-center text-red-400">{errors.serverError}</p>}
+
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             {fields.map(x => (
