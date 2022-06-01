@@ -5,7 +5,7 @@ import Button from '../Button';
 function CustomForm({ fields, btnText, children, ...props }) {
   return (
     <Formik {...props}>
-      {({ dirty, isValid, errors }) => (
+      {({ dirty, isValid, errors, isSubmitting }) => (
         <Form className="mt-8 space-y-6">
           {errors.serverError && <p className="text-center text-red-400">{errors.serverError}</p>}
 
@@ -16,8 +16,8 @@ function CustomForm({ fields, btnText, children, ...props }) {
             ))}
           </div>
           {children}
-          <Button disabled={!dirty || !isValid} type="submit">
-            {btnText}
+          <Button disabled={!dirty || !isValid || isSubmitting} type="submit">
+            {isSubmitting ? 'Saving...' : btnText}
           </Button>
         </Form>
       )}
