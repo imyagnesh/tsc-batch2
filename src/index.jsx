@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
+import { AuthProvider } from './context/authContext';
 import { LocaleProvider } from './context/localeContext';
 import ThemeProvider from './context/themeContext';
 import './style.css';
@@ -11,7 +12,9 @@ root.render(
   <BrowserRouter>
     <ThemeProvider>
       <LocaleProvider>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </LocaleProvider>
     </ThemeProvider>
   </BrowserRouter>,

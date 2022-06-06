@@ -1,9 +1,10 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useContext } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon, ShoppingCartIcon } from '@heroicons/react/outline';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import NavLink from '../components/NavLink';
 import IconButton from '../components/IconButton';
+import { AuthContext } from '../context/authContext';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -17,6 +18,13 @@ function classNames(...classes) {
 }
 
 function MainLayout() {
+  console.log('main layout');
+  const { user, onLogout } = useContext(AuthContext);
+
+  if (!user) {
+    return <Navigate to="/auth" />;
+  }
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -114,15 +122,16 @@ function MainLayout() {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <Link
-                              to="signOut"
+                            <button
+                              type="button"
+                              onClick={onLogout}
                               className={classNames(
                                 active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700',
+                                'w-full text-left block px-4 py-2 text-sm text-gray-700',
                               )}
                             >
                               Sign out
-                            </Link>
+                            </button>
                           )}
                         </Menu.Item>
                       </Menu.Items>

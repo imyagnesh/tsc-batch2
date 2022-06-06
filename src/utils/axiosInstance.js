@@ -6,6 +6,21 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
+    const rememberMe = localStorage.getItem('@app_remember_me');
+
+    let token;
+
+    if (JSON.parse(rememberMe)) {
+      token = localStorage.getItem('@app_token');
+    } else {
+      token = sessionStorage.getItem('@app_token');
+    }
+
+    if (token) {
+      const jsonToken = JSON.parse(token);
+      config.headers.Authorization = `Bearer ${jsonToken.accessToken}`;
+    }
+
     console.log('send request');
     return config;
   },
