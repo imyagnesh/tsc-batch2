@@ -1,0 +1,66 @@
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import axiosInstance from '../utils/axiosInstance';
+import { AuthContext } from './authContext';
+
+export const CartContext = createContext();
+
+export function CartProvider({ children }) {
+  const { user } = useContext(AuthContext);
+  const [cart, setCart] = useState([]);
+
+  const loadCart = useCallback(async () => {
+    try {
+      const res = await axiosInstance.get('660/cart');
+      setCart(res);
+    } catch (error) {}
+  }, []);
+
+  const addToCart = useCallback(async product => {
+    try {
+      // object of cart
+      const res = await axiosInstance.post('http://localhost:3000/660/cart', {
+        productId: product.id,
+        quantity: 1,
+        userId: user.user.id,
+      });
+      // added cart object into existing array
+      setCart(val => [...val, res]);
+    } catch (error) {}
+  }, []);
+
+  const updateCartItem = useCallback(async cartItem => {
+    try {
+      const res = await axiosInstance.put(
+        `http://localhost:3000/660/cart/${cartItem.id}`,
+        cartItem,
+      );
+      setCart(val => {
+        const index = val.findIndex(x => x.id === cartItem.id);
+        return [...val.slice(0, index), res, ...val.slice(index + 1)];
+      });
+    } catch (error) {}
+  }, []);
+
+  const deleteCartItem = useCallback(async cartItem => {
+    try {
+      await axiosInstance.delete(`http://localhost:3000/660/cart/${cartItem.id}`);
+      setCart(val => {
+        const index = val.findIndex(x => x.id === cartItem.id);
+        return [...val.slice(0, index), ...val.slice(index + 1)];
+      });
+    } catch (error) {}
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      cart,
+      loadCart,
+      addToCart,
+      updateCartItem,
+      deleteCartItem,
+    }),
+    [cart],
+  );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}

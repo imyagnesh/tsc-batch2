@@ -19,12 +19,13 @@ function Button({ disabled, className, ...props }) {
 }
 
 Button.propTypes = {
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   className: PropTypes.string,
 };
 
 Button.defaultProps = {
   className: '',
+  disabled: false,
 };
 
 export default memo(Button);

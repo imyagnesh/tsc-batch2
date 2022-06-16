@@ -5,6 +5,7 @@ import { Link, Navigate, Outlet } from 'react-router-dom';
 import NavLink from '../components/NavLink';
 import IconButton from '../components/IconButton';
 import { AuthContext } from '../context/authContext';
+import { CartContext } from '../context/cartContext';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -20,6 +21,9 @@ function classNames(...classes) {
 function MainLayout() {
   console.log('main layout');
   const { user, onLogout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+
+  console.log(cart);
 
   if (!user) {
     return <Navigate to="/auth" />;
@@ -65,11 +69,11 @@ function MainLayout() {
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <IconButton label="View Notification">
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </IconButton>
-                  <IconButton label="View Shopping Cart" className="p-4">
+                  <IconButton label="View Shopping Cart" className="flex px-4 items-center gap-2">
                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="text-lg font-bold">
+                      {cart.reduce((p, c) => p + c.quantity, 0)}
+                    </span>
                   </IconButton>
 
                   {/* Profile dropdown */}

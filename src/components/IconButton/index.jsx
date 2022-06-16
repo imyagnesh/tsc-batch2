@@ -17,7 +17,7 @@ function IconButton({ label, children, className }) {
 
 IconButton.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   className: PropTypes.string,
 };
 
