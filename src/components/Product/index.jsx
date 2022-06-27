@@ -3,9 +3,15 @@ import Button from '../Button';
 import Reviews from '../Reviews';
 import { currency } from '../../utils/index';
 
-function Product({ product, cartItem, addToCart, updateCartItem, deleteCartItem }) {
-  console.log('===========product list===========');
-
+function Product({
+  product,
+  cartItem,
+  addToCart,
+  updateCartItem,
+  deleteCartItem,
+  isAdding,
+  isUpdating,
+}) {
   return (
     <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8 py-4">
       <div className="aspect-w-2 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden col-span-3">
@@ -27,6 +33,7 @@ function Product({ product, cartItem, addToCart, updateCartItem, deleteCartItem 
             <Button
               type="button"
               className="flex-1"
+              disabled={isUpdating}
               onClick={() => updateCartItem({ ...cartItem, quantity: cartItem.quantity + 1 })}
             >
               +
@@ -47,7 +54,9 @@ function Product({ product, cartItem, addToCart, updateCartItem, deleteCartItem 
             </Button>
           </div>
         ) : (
-          <Button onClick={() => addToCart(product)}>Add to bag</Button>
+          <Button disabled={isAdding} onClick={() => addToCart(product)}>
+            Add to bag
+          </Button>
         )}
       </div>
     </div>

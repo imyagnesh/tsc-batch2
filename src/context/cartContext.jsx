@@ -7,6 +7,7 @@ export const CartContext = createContext();
 export function CartProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
+  const [cartState, setCartState] = useState([]);
 
   const loadCart = useCallback(async () => {
     try {
@@ -18,18 +19,28 @@ export function CartProvider({ children }) {
   const addToCart = useCallback(async product => {
     try {
       // object of cart
+      setCartState(val => [...val, { productId: product.id, state: 'loading', type: 'add' }]);
+
       const res = await axiosInstance.post('http://localhost:3000/660/cart', {
         productId: product.id,
         quantity: 1,
         userId: user.user.id,
       });
+
       // added cart object into existing array
       setCart(val => [...val, res]);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setCartState(val => val.filter(x => !(x.productId === product.id && x.type === 'add')));
+    }
   }, []);
 
   const updateCartItem = useCallback(async cartItem => {
     try {
+      setCartState(val => [
+        ...val,
+        { productId: cartItem.productId, state: 'loading', type: 'update' },
+      ]);
       const res = await axiosInstance.put(
         `http://localhost:3000/660/cart/${cartItem.id}`,
         cartItem,
@@ -38,7 +49,12 @@ export function CartProvider({ children }) {
         const index = val.findIndex(x => x.id === cartItem.id);
         return [...val.slice(0, index), res, ...val.slice(index + 1)];
       });
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setCartState(val =>
+        val.filter(x => !(x.productId === cartItem.productId && x.type === 'update')),
+      );
+    }
   }, []);
 
   const deleteCartItem = useCallback(async cartItem => {
@@ -54,12 +70,13 @@ export function CartProvider({ children }) {
   const value = useMemo(
     () => ({
       cart,
+      cartState,
       loadCart,
       addToCart,
       updateCartItem,
       deleteCartItem,
     }),
-    [cart],
+    [cart, cartState],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

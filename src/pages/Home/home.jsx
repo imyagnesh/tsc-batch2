@@ -5,7 +5,8 @@ import { ProductsContext } from '../../context/productsContext';
 
 function Home() {
   const { products, loadProducts } = useContext(ProductsContext);
-  const { cart, loadCart, updateCartItem, deleteCartItem, addToCart } = useContext(CartContext);
+  const { cart, cartState, loading, loadCart, updateCartItem, deleteCartItem, addToCart } =
+    useContext(CartContext);
 
   const loadData = useCallback(async () => {
     try {
@@ -24,6 +25,12 @@ function Home() {
     <div className="max-w-7xl mx-auto px-2">
       {products.map(product => {
         const cartItem = cart.find(item => item.productId === product.id);
+        const isAdding = cartState.some(
+          item => item.productId === product.id && item.type === 'add',
+        );
+        const isUpdating = cartState.some(
+          item => item.productId === product.id && item.type === 'update',
+        );
 
         return (
           <Product
@@ -33,6 +40,8 @@ function Home() {
             addToCart={addToCart}
             updateCartItem={updateCartItem}
             deleteCartItem={deleteCartItem}
+            isAdding={isAdding}
+            isUpdating={isUpdating}
           />
         );
       })}
