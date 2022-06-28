@@ -5,7 +5,7 @@ import { ProductsContext } from '../../context/productsContext';
 
 function Home() {
   const { products, loadProducts } = useContext(ProductsContext);
-  const { cart, cartState, loading, loadCart, updateCartItem, deleteCartItem, addToCart } =
+  const { cart, cartState, loadCart, updateCartItem, deleteCartItem, addToCart } =
     useContext(CartContext);
 
   const loadData = useCallback(async () => {
