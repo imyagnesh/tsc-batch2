@@ -1,4 +1,4 @@
-const initialState = 'en';
+const initialState = 'english';
 
 export default (state = initialState, action) => {
   switch (action.type) {

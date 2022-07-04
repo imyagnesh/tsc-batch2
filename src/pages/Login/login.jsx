@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field } from 'formik';
+import { connect } from 'react-redux';
 import Checkbox from '../../components/Checkbox';
 import LinkUI from '../../components/LinkUI';
 import { loginFields, loginInitValues } from './fields';
